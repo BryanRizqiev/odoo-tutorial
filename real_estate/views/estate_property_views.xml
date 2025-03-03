@@ -83,7 +83,7 @@
                           </page>
                           <page string="Offer">
                               <group>
-                                  <field name="offer_ids" options="{'no_create_edit': [('state', 'in', ['offer_accepted', 'sold', 'canceled'])]}"/>
+                                  <field name="offer_ids"/>
                               </group>
                           </page>
                           <page string="Other Info">
