@@ -26,6 +26,8 @@
                           <field name="partner_id"/>
                           <field name="validity"/>
                           <field name="deadline"/>
+                          <button name="action_accepted" string="Accepted" type="object" icon="fa-check" invisible="is_offer_accepted"/>
+                          <button name="action_refused" string="Refused" type="object" icon="fa-times" invisible="is_offer_accepted"/>
                       </group>
                   </group>
               </sheet>
