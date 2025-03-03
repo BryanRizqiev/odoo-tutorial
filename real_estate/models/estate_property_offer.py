@@ -9,13 +9,19 @@ class PropertyOffer(models.Model):
     price = fields.Float("Price")
     status = fields.Selection(
         string="Status",
-        selection=[('pending',"Pending"), ('refused', "Refused"), ('accepted', "Accepted")],
+        selection=[('refused', "Refused"), ('accepted', "Accepted")],
         help="Please select an option",
-        default="pending")
+        )
     partner_id = fields.Many2one("res.partner", string="Partner")
     property_id = fields.Many2one("estate.property", required=True)
     validity = fields.Integer("Validity (days)", compute='_compute_validity', inverse='_inverse_validity', store=True)
     deadline = fields.Date("Deadline", compute='_compute_deadline', inverse='_inverse_deadline', store=True)
+    is_offer_accepted = fields.Boolean(compute="_is_offer_accepted")
+
+    _sql_constraints = [
+        ('positive_expected_price', 'CHECK(expected_price > 0)', 'Expected price must be strictly positive.'),
+        ('positive_selling_price', 'CHECK(selling_price > 0)', 'Selling price must be strictly positive.'),
+    ]
 
     @api.depends('validity')
     def _compute_deadline(self):
@@ -40,3 +46,19 @@ class PropertyOffer(models.Model):
         for offer in self:
             if offer.validity:
                 offer.deadline = fields.Date.today() + timedelta(days=offer.validity)
+
+    @api.depends('property_id.state')
+    def _is_offer_accepted(self):
+        for record in self:
+            record.is_offer_accepted = record.property_id.state == 'offer_accepted'
+    
+    def action_accepted(self):
+        for offer in self:
+            offer.write({'status': 'accepted'})
+            offer.property_id.selling_price = offer.property_id.best_offer
+            offer.property_id.buyer_id = offer.partner_id
+            offer.property_id.write({'state': 'offer_accepted'})
+
+    def action_refused(self):
+        for offer in self:
+            offer.write({'status': 'refused'})
