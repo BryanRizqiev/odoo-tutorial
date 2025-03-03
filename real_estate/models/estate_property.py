@@ -16,9 +16,9 @@ class EstateProperty(models.Model):
     name = fields.Char("Name", default="Unknown", required=True)
     description = fields.Text("Description", required=True)
     postcode = fields.Char("Postcode", required=True)
-    date_availability = fields.Datetime("Available From", default=fields.Datetime.now, readonly=True)
+    date_availability = fields.Datetime("Available From", default=fields.Date.today(), readonly=True)
     expected_price = fields.Float("Expected Price", required=True)
-    selling_price = fields.Float("Selling Price", required=True)
+    selling_price = fields.Float("Selling Price", readonly=True)
     bedrooms = fields.Integer("Bedrooms", required=True, default=2)
     living_area = fields.Integer("Living Area (sqm)", required=True)
     facades = fields.Integer("Facades", required=True)
@@ -30,7 +30,7 @@ class EstateProperty(models.Model):
         selection=[("north", "North"), ("south", "South"), ("east", "East"), ("west", "West")],
         help="Garden orientation"
     )
-    active = fields.Boolean(required=True, default=False)
+    active = fields.Boolean(required=True, default=True)
     property_type_id = fields.Many2one("estate.property.type", string="Property Type", required=True)
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     state = fields.Selection(
@@ -39,7 +39,7 @@ class EstateProperty(models.Model):
         default='new',
         readonly=True,
     )
-
+    best_offer = fields.Float("Best Offer", compute="_compute_best_offer", store=True)
     salesman_id = fields.Many2one('res.users', string='Salesman', index=True, default=lambda self: self.env.user)
     buyer_id = fields.Many2one('res.partner', string='Buyer')
     offer_ids = fields.One2many(
@@ -47,6 +47,10 @@ class EstateProperty(models.Model):
         'property_id',
         string='Offers',
     )
+
+    _sql_constraints = [
+        ('unique_name', 'unique(name)', 'The tag name already created'),
+    ]
 
     @api.constrains('expected_price', 'selling_price')
     def _check_selling_price(self):
@@ -69,3 +73,8 @@ class EstateProperty(models.Model):
             if record.state == 'canceled':
                 raise exceptions.UserError("A canceled property cannot be sold.")
             record.write({'state': 'sold'})
+
+    @api.depends("offer_ids.price")
+    def _compute_best_offer(self):
+        for property_record in self:
+            property_record.best_offer = max(property_record.offer_ids.mapped('price'))
