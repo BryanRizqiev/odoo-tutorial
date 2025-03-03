@@ -1,0 +1,107 @@
+<odoo>
+  <record id="test_model_action" model="ir.actions.act_window">
+      <field name="name">Estate Property</field>
+      <field name="res_model">estate.property</field>
+      <field name="view_mode">list,form</field>
+  </record>
+
+  <record id="view_tree_property" model="ir.ui.view">
+      <field name="name">estate.property.list</field>
+      <field name="model">estate.property</field>
+      <field name="arch" type="xml">
+          <list>
+              <field name="name"/>
+              <field name="description"/>
+              <field name="property_type_id"/>
+              <field name="tag_ids" widget="many2many_tags"/>
+              <field name="postcode"/>
+              <field name="date_availability"/>
+              <field name="expected_price"/>
+              <field name="selling_price"/>
+              <field name="bedrooms"/>
+              <field name="living_area"/>
+              <field name="facades"/>
+              <field name="garage"/>
+              <field name="garden"/>
+              <field name="garden_area"/>
+              <field name="garden_orientation"/>
+          </list>
+      </field>
+  </record>
+
+  <record id="view_search_property" model="ir.ui.view">
+      <field name="name">estate.property.search</field>
+      <field name="model">estate.property</field>
+      <field name="arch" type="xml">
+          <search>
+              <field name="name" string="Property Name"/>
+              <field name="postcode" string="Postcode"/>
+              <field name="bedrooms" string="Bedrooms"/>
+              <field name="expected_price" string="Expected price"/>
+              <field name="selling_price" string="Selling Price"/>
+          </search>
+      </field>
+  </record>
+
+  <record id="view_form_property" model="ir.ui.view">
+      <field name="name">estate.property.form</field>
+      <field name="model">estate.property</field>
+      <field name="arch" type="xml">
+          <form string="Test">
+              <header>
+                  <button class="oe_highlight" name="button_sold" type="object" string="SOLD"/>
+                  <button class="oe_highlight" name="button_cancel" type="object" string="CANCEL"/>
+                  <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold" />
+              </header>
+
+              <sheet>
+                  <group>
+                      <group>
+                          <field name="name"/>
+                          <field name="state" />
+                          <field name="tag_ids"/>
+                          <field name="property_type_id" options="{'no_create': true, 'no_open': true}"/>
+                      </group>
+                      <group>
+                          <field name="date_availability"/>
+                          <field name="expected_price"/>
+                          <field name="selling_price"/>
+                      </group>
+                      <notebook>
+                          <page string="Description">
+                              <group>
+                                  <field name="description"/>
+                                  <field name="postcode"/>
+                                  <field name="bedrooms"/>
+                                  <field name="facades"/>
+                                  <field name="garage"/>
+                                  <field name="garden"/>
+                                  <field name="living_area"/>
+                                  <field name="garden_area" invisible="not garden"/>
+                                  <field name="garden_orientation" string="Garden Orientation" invisible="not garden"/>
+                              </group>
+                          </page>
+                          <page string="Offer">
+                              <group>
+                                  <field name="offer_ids" options="{'no_create_edit': [('state', 'in', ['offer_accepted', 'sold', 'canceled'])]}"/>
+                              </group>
+                          </page>
+                          <page string="Other Info">
+                              <group>
+                                  <field name="salesman_id"/>
+                                  <field name="buyer_id"/>
+                              </group>
+                          </page>
+                      </notebook>
+                  </group>
+              </sheet>
+          </form>
+      </field>
+  </record>
+
+  <menuitem id="test_menu_root" name="Real Estate">
+      <menuitem id="test_first_level_menu" name="Menu">
+          <menuitem id="test_model_menu_action" action="test_model_action"/>
+      </menuitem>
+  </menuitem>
+</odoo>
