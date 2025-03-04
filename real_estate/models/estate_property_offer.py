@@ -1,5 +1,10 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 from datetime import timedelta
+import logging
+
+
+_logger = logging.getLogger(__name__)
+
 
 class PropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -17,11 +22,7 @@ class PropertyOffer(models.Model):
     validity = fields.Integer("Validity (days)", compute='_compute_validity', inverse='_inverse_validity', store=True)
     deadline = fields.Date("Deadline", compute='_compute_deadline', inverse='_inverse_deadline', store=True)
     is_offer_accepted = fields.Boolean(compute="_is_offer_accepted")
-
-    _sql_constraints = [
-        ('positive_expected_price', 'CHECK(expected_price > 0)', 'Expected price must be strictly positive.'),
-        ('positive_selling_price', 'CHECK(selling_price > 0)', 'Selling price must be strictly positive.'),
-    ]
+    property_type_id = fields.Many2one(related="property_id.property_type_id", store=True)
 
     @api.depends('validity')
     def _compute_deadline(self):
@@ -29,7 +30,6 @@ class PropertyOffer(models.Model):
             if offer.validity:
                 offer.deadline = fields.Date.today() + timedelta(days=offer.validity)
 
-    @api.onchange('deadline')
     def _inverse_deadline(self):
         for offer in self:
             if offer.deadline:
@@ -41,7 +41,6 @@ class PropertyOffer(models.Model):
             if offer.deadline:
                 offer.validity = (offer.deadline - fields.Date.today()).days
 
-    @api.onchange('validity')
     def _inverse_validity(self):
         for offer in self:
             if offer.validity:
@@ -62,3 +61,17 @@ class PropertyOffer(models.Model):
     def action_refused(self):
         for offer in self:
             offer.write({'status': 'refused'})
+
+    def revert(self):
+        for offer in self:
+            offer.write({'status': None})
+            offer.property_id.write({'state': 'offer_received'})
+            
+    @api.model_create_multi
+    def create(self, vals):
+        estate_prop = self.env['estate.property'].browse(vals[0]['property_id'])
+        if vals[0]['price'] <  estate_prop.best_offer: 
+            raise exceptions.UserError("Can't create record because lower than best offer.")
+        estate_prop.write({'state': 'offer_received'})
+        return super().create(vals)
+    
