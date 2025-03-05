@@ -2,9 +2,7 @@ from odoo import models, fields, api, exceptions
 from datetime import timedelta
 import logging
 
-
 _logger = logging.getLogger(__name__)
-
 
 class PropertyOffer(models.Model):
     _name = "estate.property.offer"
@@ -18,7 +16,7 @@ class PropertyOffer(models.Model):
         help="Please select an option",
         )
     partner_id = fields.Many2one("res.partner", string="Partner")
-    property_id = fields.Many2one("estate.property", required=True)
+    property_id = fields.Many2one("estate.property", required=True, ondelete="cascade")
     validity = fields.Integer("Validity (days)", compute='_compute_validity', inverse='_inverse_validity', store=True)
     deadline = fields.Date("Deadline", compute='_compute_deadline', inverse='_inverse_deadline', store=True)
     is_offer_accepted = fields.Boolean(compute="_is_offer_accepted")
