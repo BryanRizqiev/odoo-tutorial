@@ -1,0 +1,11 @@
+<odoo>
+  <data>
+    <record model="ir.actions.client" id="clicker">
+      <field name="name">Clicker</field>
+      <field name="tag">awesome_clicker.clicker</field>
+    </record>
+
+    <menuitem name="Awesome Clicker" id="awesome_clicker.menu_root" groups="base.group_user"/>
+    <menuitem name="Clicker" id="awesome_clicker.clicker_menu" parent="awesome_clicker.menu_root" action="awesome_clicker.clicker" sequence="1"/>
+  </data>
+</odoo>
