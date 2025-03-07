@@ -5,4 +5,3 @@ class Provinsi(models.Model):
     _description = "Provinsi model"
 
     name = fields.Char(string="Provinsi")
-    kode = fields.Char(string="Kode")

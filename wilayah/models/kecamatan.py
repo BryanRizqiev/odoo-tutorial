@@ -5,5 +5,4 @@ class Kecamatan(models.Model):
     _description = "Kecamatan model"
 
     name = fields.Char(string="Kecamatan")
-    kode = fields.Char(string="Kode")
     kota_id = fields.Many2one("wilayah.kota", string="Kota")
