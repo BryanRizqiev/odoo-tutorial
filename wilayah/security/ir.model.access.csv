@@ -1,5 +1,5 @@
 id,name,model_id,group_id,perm_read,perm_write,perm_create,perm_unlink
-accs_wilayah_provinsi_model,accs_wilayah_provinsi_model,wilayah.provinsi,Access Rights,1,1,1,1
-accs_wilayah_kota_model,accs_wilayah_kota_model,wilayah.kota,Access Rights,1,1,1,1
-accs_wilayah_kecamatan_model,accs_wilayah_kecamatan_model,wilayah.kecamatan,Access Rights,1,1,1,1
 accs_wilayah_desa_model,accs_wilayah_desa_model,wilayah.desa,Access Rights,1,1,1,1
+accs_wilayah_kecamatan_model,accs_wilayah_kecamatan_model,wilayah.kecamatan,Access Rights,1,1,1,1
+accs_wilayah_kota_model,accs_wilayah_kota_model,wilayah.kota,Access Rights,1,1,1,1
+accs_wilayah_provinsi_model,accs_wilayah_provinsi_model,wilayah.provinsi,Access Rights,1,1,1,1
