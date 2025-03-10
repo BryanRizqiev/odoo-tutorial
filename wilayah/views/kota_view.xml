@@ -7,5 +7,5 @@
     </record>
 
         <menuitem id="kota_menu_action"
-                  action="kota_action_view" parent="provinsi_menu"/>
+                  action="kota_action_view" parent="contacts.menu_localisation"/>
 </odoo>

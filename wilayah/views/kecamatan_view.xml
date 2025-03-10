@@ -7,5 +7,5 @@
     </record>
 
         <menuitem id="kecamatan_menu_action"
-                  action="kecamatan_action_view" parent="provinsi_menu"/>
+                  action="kecamatan_action_view" parent="contacts.menu_localisation"/>
 </odoo>
