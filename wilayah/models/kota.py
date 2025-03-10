@@ -5,4 +5,5 @@ class Kota(models.Model):
     _description = "Kota model"
 
     name = fields.Char(string="Kota")
-    provinsi_id = fields.Many2one("wilayah.provinsi", string="Provinsi")
+    kode_provinsi = fields.Char(string="Kode Provinsi")
+    state = fields.Many2one("res.country.state", string="State")

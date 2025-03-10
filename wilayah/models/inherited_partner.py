@@ -1,4 +1,7 @@
 from odoo import fields, models, api
+import logging
+
+logger = logging.getLogger(__name__)
 
 class InheritedUser(models.Model):
     _inherit = "res.partner"
@@ -6,10 +9,9 @@ class InheritedUser(models.Model):
     desa_id = fields.Many2one("wilayah.desa", string="Desa")
     kota_id = fields.Many2one("wilayah.kota", string="Kota")
     kecamatan_id = fields.Many2one("wilayah.kecamatan", string="Kecamatan")
-    provinsi_id = fields.Many2one("wilayah.provinsi", string="Provinsi")
 
-    @api.onchange("provinsi_id")
-    def _ochange_provinsi_id(self):
+    @api.onchange("state_id")
+    def _ochange_state_id(self):
         self.kota_id = None
         self.kecamatan_id = None
         self.desa_id = None
