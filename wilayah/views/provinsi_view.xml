@@ -1,0 +1,17 @@
+<odoo>
+    <record id="provinsi_action_view"
+            model="ir.actions.act_window">
+        <field name="name">Provinsi</field>
+        <field name="res_model">wilayah.provinsi</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <menuitem id="provinsi_menu_root"
+          name="Wilayah">
+    <menuitem id="provinsi_menu"
+              name="Menu">
+        <menuitem id="provinsi_menu_action"
+                  action="provinsi_action_view" />
+    </menuitem>
+</menuitem>
+</odoo>
