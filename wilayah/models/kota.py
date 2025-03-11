@@ -5,5 +5,6 @@ class Kota(models.Model):
     _description = "Kota model"
 
     name = fields.Char(string="Kota")
-    kode_provinsi = fields.Char(string="Kode Provinsi")
+    province_code = fields.Char(string="Kode Provinsi")
+    code = fields.Char(string="Kode Kota")
     state = fields.Many2one("res.country.state", string="State")
