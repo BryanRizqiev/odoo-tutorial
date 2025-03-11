@@ -1,8 +1,0 @@
-<odoo>
-    <menuitem id="provinsi_menu_root"
-          name="Wilayah">
-    <menuitem id="provinsi_menu"
-              name="Menu">
-    </menuitem>
-    </menuitem>
-</odoo>
