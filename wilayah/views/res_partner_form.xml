@@ -12,10 +12,12 @@
                     <field name="subdistrict_id" domain="[('district_id', '=', district_id)]" placeholder="Desa/Kelurahan" invisible="not is_indonesia"/>
                 </xpath>
 
-                <!-- <field name="state_id" position="before">
-                        <field name="country_id" position="move"/>
-                        <field name="street2" position="move"/>
-                </field> -->
+                <field name="city_id" position="before">
+                    <field name="country_id" position="move"/>
+                </field>
+                <field name="city_id" position="before">
+                    <field name="state_id" position="move"/>
+                </field>
             </field>
         </record>
     </data>
