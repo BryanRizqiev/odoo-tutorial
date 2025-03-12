@@ -15,7 +15,7 @@
             <list>
                 <field name="name"/>
                 <field name="code"/>
-                <field name="kota_id"/>
+                <field name="city_id"/>
             </list>
         </field>
     </record>

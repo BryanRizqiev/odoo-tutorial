@@ -6,9 +6,9 @@ logger = logging.getLogger(__name__)
 class InheritedPartner(models.Model):
     _inherit = "res.partner"
 
-    desa_id = fields.Many2one("wilayah.subdistrict", string="Subdistrict")
-    kota_id = fields.Many2one("wilayah.city", string="City")
-    kecamatan_id = fields.Many2one("wilayah.district", string="District")
+    subdistrict_id = fields.Many2one("wilayah.subdistrict", string="Subdistrict")
+    city_id = fields.Many2one("wilayah.city", string="City")
+    district_id = fields.Many2one("wilayah.district", string="District")
     is_indonesia = fields.Boolean(compute="_is_indonesia", store=True)
 
     @api.depends('country_id')
@@ -22,28 +22,28 @@ class InheritedPartner(models.Model):
     @api.onchange("country_id")
     def _ochange_state_id(self):
         self.state_id = None
-        self.kota_id = None
-        self.kecamatan_id = None
-        self.desa_id = None
+        self.city_id = None
+        self.district_id = None
+        self.subdistrict_id = None
         self.city = ""
 
     @api.onchange("state_id")
     def _ochange_state_id(self):
-        self.kota_id = None
-        self.kecamatan_id = None
-        self.desa_id = None
+        self.city_id = None
+        self.district_id = None
+        self.subdistrict_id = None
         self.city = ""
 
-    @api.onchange("kota_id")
-    def _ochange_kota_id(self):
+    @api.onchange("city_id")
+    def _ochange_city_id(self):
         for record in self:
-            record.kecamatan_id = None
-            record.desa_id = None
+            record.district_id = None
+            record.subdistrict_id = None
             try:
-                record.city = record.kota_id.name.title()
+                record.city = record.city_id.name.title()
             except:
                 record.city = ""
 
-    @api.onchange("kecamatan_id")
-    def _ochange_kecamatan_id(self):
-        self.desa_id = None
+    @api.onchange("district_id")
+    def _ochange_district_id(self):
+        self.subdistrict_id = None

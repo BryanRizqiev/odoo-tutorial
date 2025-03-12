@@ -6,4 +6,4 @@ class Subdistrict(models.Model):
 
     name = fields.Char(string="Subdistrict")
     code = fields.Char(string="Subdistrict Code")
-    kecamatan_id = fields.Many2one("wilayah.district", string="District")
+    district_id = fields.Many2one("wilayah.district", string="District")

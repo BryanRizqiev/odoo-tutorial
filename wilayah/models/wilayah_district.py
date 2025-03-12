@@ -6,4 +6,4 @@ class District(models.Model):
 
     name = fields.Char(string="District")
     code = fields.Char(string="District Code")
-    kota_id = fields.Many2one("wilayah.city", string="City")
+    city_id = fields.Many2one("wilayah.city", string="City")

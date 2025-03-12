@@ -15,7 +15,7 @@
             <list>
                 <field name="name"/>
                 <field name="code"/>
-                <field name="kecamatan_id"/>
+                <field name="district_id"/>
             </list>
         </field>
     </record>
