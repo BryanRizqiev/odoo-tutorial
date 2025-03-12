@@ -1,0 +1,22 @@
+<odoo>
+    <record id="subdistrict_action_view"
+            model="ir.actions.act_window">
+        <field name="name">Subdistrict</field>
+        <field name="res_model">wilayah.subdistrict</field>
+        <field name="view_mode">list,form,kanban</field>
+    </record>
+
+    <menuitem id="subdistrict_menu_action" action="subdistrict_action_view" parent="contacts.menu_localisation"/>
+
+    <record id="subdistrict_list_view" model="ir.ui.view">
+        <field name="name">wilayah.subdistrict.list</field>
+        <field name="model">wilayah.subdistrict</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="kecamatan_id"/>
+            </list>
+        </field>
+    </record>
+</odoo>

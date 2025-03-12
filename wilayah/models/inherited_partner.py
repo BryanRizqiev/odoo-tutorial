@@ -3,12 +3,12 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class InheritedUser(models.Model):
+class InheritedPartner(models.Model):
     _inherit = "res.partner"
 
-    desa_id = fields.Many2one("wilayah.desa", string="Desa")
-    kota_id = fields.Many2one("wilayah.kota", string="Kota")
-    kecamatan_id = fields.Many2one("wilayah.kecamatan", string="Kecamatan")
+    desa_id = fields.Many2one("wilayah.subdistrict", string="Subdistrict")
+    kota_id = fields.Many2one("wilayah.city", string="City")
+    kecamatan_id = fields.Many2one("wilayah.district", string="District")
     is_indonesia = fields.Boolean(compute="_is_indonesia", store=True)
 
     @api.depends('country_id')

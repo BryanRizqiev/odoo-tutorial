@@ -1,1 +1,1 @@
-from . import kota, kecamatan, desa, inherited_partner
+from . import inherited_partner, wilayah_city, wilayah_district, wilayah_subdistrict

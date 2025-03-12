@@ -2,11 +2,11 @@
 {
     'name': "Wilayah",
     'summary': """
-        Starting module for "Discover the JS framework, chapter 1: Owl components"
+        Modul untuk integrasi wilayah Indonesia
     """,
 
     'description': """
-        Starting module for "Discover the JS framework, chapter 1: Owl components"
+        Modul untuk integrasi wilayah Indonesia"
     """,
 
     'author': "Odoo",
@@ -21,12 +21,12 @@
     'license': 'AGPL-3',
     'data': [
       'security/ir.model.access.csv',
-      'data/wilayah.kota.csv',
-      'data/wilayah.kecamatan.csv',
-      'data/wilayah.desa.csv',
-      'views/kota_view.xml',
-      'views/kecamatan_view.xml',
-      'views/desa_view.xml',
+      'data/wilayah.city.csv',
+      'data/wilayah.district.csv',
+      'data/wilayah.subdistrict.csv',
+      'views/city_view.xml',
+      'views/district_view.xml',
+      'views/subdistrict_view.xml',
       'views/res_partner_form.xml'
     ]
 }

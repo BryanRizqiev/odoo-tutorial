@@ -1,23 +1,21 @@
 <odoo>
     <data>
-        <record id="res_users_view_form"
+        <record id="res_partner_inherit_view_form"
                 model="ir.ui.view">
             <field name="name">res.users.view.form.inherit.wilayah</field>
             <field name="model">res.partner</field>
-            <field name="inherit_id"
-                   ref="base.view_partner_form" />
-            <field name="arch"
-                   type="xml">
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
                 <xpath expr="//field[@name='street2']" position="after">
                     <field name="kota_id" domain="[('state', '=', state_id)]" placeholder="Kabupaten/Kota" invisible="not is_indonesia"/>
                     <field name="kecamatan_id" domain="[('kota_id', '=', kota_id)]" placeholder="Kecamatan" invisible="not is_indonesia"/>
                     <field name="desa_id" domain="[('kecamatan_id', '=', kecamatan_id)]" placeholder="Desa/Kelurahan" invisible="not is_indonesia"/>
                 </xpath>
 
-                <field name="country_id" position="after">
-                    <!-- <field name="country_id" position="m/ove"/> -->
-                    <field name="state_id" position="move"/>
-                </field>
+                <!-- <field name="state_id" position="before">
+                        <field name="country_id" position="move"/>
+                        <field name="street2" position="move"/>
+                </field> -->
             </field>
         </record>
     </data>
