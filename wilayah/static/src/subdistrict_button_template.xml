@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-name="wilayah.ImportButton" t-inherit="web.ListView.Buttons">
+        <xpath expr="//div[hasclass('o_list_buttons')]" position="inside" t-inherit-mode="primary">
+            <button type="button" class="btn btn-primary" t-on-click="importButton">
+                Import Data
+            </button>
+        </xpath>
+    </t>
+</templates>

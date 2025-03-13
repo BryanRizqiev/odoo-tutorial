@@ -15,7 +15,7 @@
     'category': 'Tutorials/Wilayah',
     'version': '0.1',
 
-    'depends': ['base'],
+    'depends': ['base', 'web'],
     'application': True,
     'installable': True,
     'license': 'AGPL-3',
@@ -23,10 +23,14 @@
       'security/ir.model.access.csv',
       'data/wilayah.city.csv',
       'data/wilayah.district.csv',
-      'data/wilayah.subdistrict.csv',
       'views/city_view.xml',
       'views/district_view.xml',
       'views/subdistrict_view.xml',
-      'views/res_partner_form.xml'
-    ]
+      'views/res_partner_form.xml',
+    ],
+    'assets': {
+        'web.assets_backend': [
+            'wilayah/static/src/**/*',
+        ],
+    }
 }

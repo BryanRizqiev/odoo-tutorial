@@ -12,11 +12,27 @@
         <field name="name">wilayah.subdistrict.list</field>
         <field name="model">wilayah.subdistrict</field>
         <field name="arch" type="xml">
-            <list>
+            <list js_class="subdistrict_list_button">
                 <field name="name"/>
                 <field name="code"/>
                 <field name="district_id"/>
             </list>
+        </field>
+    </record>
+
+    <record id="subdistrict_form_view" model="ir.ui.view">
+        <field name="name">wilayah.subdistrict.form</field>
+        <field name="model">wilayah.subdistrict</field>
+        <field name="arch" type="xml">
+            <form string="Subdistrict">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="district_id"/>
+                    </group>
+                </sheet>
+            </form>
         </field>
     </record>
 </odoo>
